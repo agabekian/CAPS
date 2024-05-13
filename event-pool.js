@@ -2,7 +2,7 @@
 
 // Create a singleton, which is a single instance of a class
 // This is a classic design pattern
-// The exported instance is SHARED across all modules
+// The exported instance is SHARED across all modules!
 
 const Events = require('events');
 const events = new Events();
