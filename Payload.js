@@ -1,4 +1,4 @@
-class Shipment {
+class Payload {
     constructor(store, orderId, customer, address) {
         this.store = store;
         this.orderId = orderId;
@@ -7,4 +7,4 @@ class Shipment {
     }
 }
 
-module.exports = Shipment;
+module.exports = Payload;

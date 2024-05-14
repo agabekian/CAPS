@@ -2,7 +2,7 @@
 
 const e = require('../event-pool');
 const Chance = require('chance');
-const Shipment = require('../Shipment');
+const Shipment = require('../Payload');
 const {vendorThanks} = require('./vendor');
 
 const chance = new Chance();
