@@ -1,17 +1,54 @@
-'use strict';
+const e = require('./event-pool');
+const vendor = require('./vendor/index');
+const driver = require('./driver/index');
+const {inTransit} = require("./driver/driver");
 
-const eventPool = require('./event-pool');
-console.log("ccccc")
-// Listen for pickup notifications from vendor
-eventPool.on('pickupNotification', (vendor, packageId) => {
-    console.log(`Received pickup notification from ${vendor} for package ${packageId}`);
-    // Emit the 'pickupAssigned' event to trigger driver assignment
-    eventPool.emit('pickupAssigned', 'Driver X', packageId);
-});
+class Package {
+    constructor(event, time, payload) {
+        this.event = event;
+        this.time = time;
+        this.payload = payload;
+    }
+}
 
-// Define a handler for the 'pickupAssigned' event
-eventPool.on('pickupAssigned', (driver, packageId) => {
-    console.log(`Assigned pickup to ${driver} for package ${packageId}`);
-    // Emit the 'drive' event to trigger the driver action
-    eventPool.emit('drive', driver, packageId);
-});
+e.on('pickupNotification', handlePickupNotification);
+
+function handlePickupNotification(payload){
+    console.log(`Received pickup notification from for package`);
+    console.log("triggering driver")
+    e.emit('driverAssigned')
+}
+
+e.on('inTransit',inTransit);
+
+e.on('delivered',()=>{
+    console.log("HUB RECEIVED FROM DRIVER: delivered")
+    e.emit('delivered');//to VENDOR
+})
+
+
+//
+
+//
+// function logEvent(event, payload) {
+//     const currentTime = new Date().toISOString();
+//     console.log(
+//         `EVENT: {
+//             event: ${event},
+//             time: ${currentTime},
+//             payload: ${JSON.stringify(payload, null, 2)}
+//         }`
+//     )
+// }
+//
+//
+// // e.on('deliveryComplete', (payload) => {
+// //     console.log("DDDD")
+// // });
+//
+//
+//
+//
+// // eventEmitter.emit('deliveryNotification', 'Driver X', '12345');
+// // eventEmitter.emit('pickupAcknowledgment', 'Driver X', '12345');
+// // eventEmitter.emit('logEvent', 'Driver X', '12345');

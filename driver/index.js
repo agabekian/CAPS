@@ -1,8 +1,16 @@
-const eventPool = require('../event-pool');
-const driver = require('./driver');
+const e = require('../event-pool');
+const driver = require('./driver');;
 
-// Listen for pickupAssigned events
-eventPool.on('pickupAssigned', (driver, packageId) => {
-  console.log(`Assigned pickup to ${driver} for package ${packageId}`);
-  // Perform any actions in response to the pickup assignment
+e.on('driverAssigned', (packageId) => {
+  console.log(`DRIVER INDEX : recievedForShipment by driver`);
+  e.emit('inTransit')
+  e.emit('delvered')
 });
+
+
+// Listen for events indicating package delivery by the driver
+e.emit('packageDelivered', (packageId) => {
+  console.log(`Package ${packageId} has been delivered`);
+  // Perform any necessary actions in response to the package being delivered
+});
+

@@ -2,7 +2,7 @@
 
 const events = require('./event-pool.js');
 
-const arms = require('./body/');
+const arms = require('./body/arms.js');
 const eyes = require('./body/eyes');
 
 events.on('light-detected', handleLight);
