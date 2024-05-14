@@ -2,13 +2,24 @@
 
 const e = require('../event-pool');
 const Chance = require('chance');
-const chance = new Chance();
+const Shipment = require('./Payload');
+const {vendorThanks} = require('./vendor');
 
-// Example event emission for pickup notification
+const chance = new Chance();
+const orderId = chance.guid({length: 8});
+
+const shippingLabel = new Shipment(
+    "Guitar Center",
+    orderId,
+    "Armen",
+    "Central, 8"
+)
+
 setInterval(() => {
-    const packageId = chance.string({ length: 8 });
-    e.emit('pickupNotification');
+    e.emit('pickupNotification', shippingLabel);
 }, 3000);
 
-e.on('delivered', e => {
-    console.log("yey delievry")})
+
+e.on('notifyVendorOK',(payload)=>{
+    vendorThanks(payload);
+})

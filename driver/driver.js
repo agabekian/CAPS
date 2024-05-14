@@ -1,13 +1,10 @@
 const eventPool = require('../event-pool');
 const e = require("../event-pool");
 
-function inTransit(){
-  console.log("SHIP TO SHORE ya its in transit");
-}
-function delivered(){
-  console.log("TO HUB FROM DRIVER ALL DONE");
+function driverPickedUp(id) {
+    console.log("DRIVER: picked up", id);
 }
 
 module.exports = {
-  inTransit
+    driverPickedUp,
 }

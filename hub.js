@@ -1,54 +1,30 @@
 const e = require('./event-pool');
 const vendor = require('./vendor/index');
 const driver = require('./driver/index');
-const {inTransit} = require("./driver/driver");
 
-class Package {
-    constructor(event, time, payload) {
-        this.event = event;
-        this.time = time;
-        this.payload = payload;
-    }
+function logEvent(event, payload) {
+    const currentTime = new Date().toISOString();
+    console.log(
+        `EVENT: {
+            event: ${event},
+            time: ${currentTime},
+            payload: ${JSON.stringify(payload, null, 2)}
+        }`
+    )
 }
 
-e.on('pickupNotification', handlePickupNotification);
+e.on('pickupNotification', (payload) => {
+    logEvent('pickupNotification', payload)
+    e.emit('driverAssigned', payload) //id only
+});
 
-function handlePickupNotification(payload){
-    console.log(`Received pickup notification from for package`);
-    console.log("triggering driver")
-    e.emit('driverAssigned')
-}
+e.on('inTransit', (payload) =>
+    logEvent('inTransit', payload));
 
-e.on('inTransit',inTransit);
 
-e.on('delivered',()=>{
-    console.log("HUB RECEIVED FROM DRIVER: delivered")
-    e.emit('delivered');//to VENDOR
+//Does line 27 belongs here? Should it not come from driver?
+e.on('delivered', (payload) => {
+    console.log("DRIVER: delivered up", payload)
+    e.emit('notifyVendorOK', payload); // inform the VENDOR packaged delivered.
 })
 
-
-//
-
-//
-// function logEvent(event, payload) {
-//     const currentTime = new Date().toISOString();
-//     console.log(
-//         `EVENT: {
-//             event: ${event},
-//             time: ${currentTime},
-//             payload: ${JSON.stringify(payload, null, 2)}
-//         }`
-//     )
-// }
-//
-//
-// // e.on('deliveryComplete', (payload) => {
-// //     console.log("DDDD")
-// // });
-//
-//
-//
-//
-// // eventEmitter.emit('deliveryNotification', 'Driver X', '12345');
-// // eventEmitter.emit('pickupAcknowledgment', 'Driver X', '12345');
-// // eventEmitter.emit('logEvent', 'Driver X', '12345');

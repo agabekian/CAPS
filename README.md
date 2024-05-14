@@ -14,7 +14,7 @@ Tests
 
 ### UML
 
-![img_1.png](img_1.png)
+![img_1.png](docs/img_1.png)
 
 
 #

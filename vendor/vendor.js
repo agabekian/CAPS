@@ -1,14 +1,13 @@
 
-const pickupNotificationHandler = (vendor, orderId) => {
-    console.log(`Vendor ${vendor} has a package to be picked up (ID: ${orderId})`);
+'use strict';
 
-};
-
-const handleDelivered = (vendor, orderId) => {
-    console.log(`package is delivered: `);
-
-};
-
+function vendorThanks(id){
+    console.log(`VENDOR: Thank you for delivering ${id}, come again!`)
+}
+function delivered(id) {
+    console.log("delivered up", id);
+}
 module.exports = {
-    pickupNotificationHandler
-};
+    vendorThanks,
+    delivered
+}
