@@ -1,14 +1,17 @@
 
-const pickupNotificationHandler = (vendor, orderId) => {
-    console.log(`Vendor ${vendor} has a package to be picked up (ID: ${orderId})`);
+// function pickupNotificationHandler(){
+//     console.log(`Vendo has a package to be picked up);
+//     // const payload = {
+//     // "event":
+//     // }
+//
+// }
 
-};
-
-const handleDelivered = (vendor, orderId) => {
-    console.log(`package is delivered: `);
-
-};
-
-module.exports = {
-    pickupNotificationHandler
-};
+// const handleDelivered = (vendor, orderId) => {
+//     console.log(` `);
+//
+// };
+//
+// module.exports = {
+//     pickupNotificationHandler
+// };

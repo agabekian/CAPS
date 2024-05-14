@@ -4,7 +4,7 @@ const e = require("../event-pool");
 function inTransit(){
   console.log("SHIP TO SHORE ya its in transit");
 }
-function delivered(){
+function delivered(payload){
   console.log("TO HUB FROM DRIVER ALL DONE");
 }
 

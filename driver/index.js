@@ -1,5 +1,5 @@
 const e = require('../event-pool');
-const driver = require('./driver');;
+const driver = require('./handler');;
 
 e.on('driverAssigned', (packageId) => {
   console.log(`DRIVER INDEX : recievedForShipment by driver`);
