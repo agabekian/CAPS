@@ -5,10 +5,6 @@ function driverPickedUp(id) {
     console.log("DRIVER: picked up", id);
 }
 
-function delivered(id) {
-    console.log("delivered up", id);
-}
 module.exports = {
     driverPickedUp,
-    delivered
 }
