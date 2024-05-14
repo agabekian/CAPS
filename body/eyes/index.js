@@ -10,6 +10,7 @@ events.on('light', pupil);
 
 // pretent we open our eyes and the eyes detect light
 // Event gets triggered
+
 setInterval( () => {
   let brightness = Math.floor(Math.random() * 100);
   console.log('----------------------');
