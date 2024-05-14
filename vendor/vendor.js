@@ -1,17 +1,13 @@
 
-// function pickupNotificationHandler(){
-//     console.log(`Vendo has a package to be picked up);
-//     // const payload = {
-//     // "event":
-//     // }
-//
-// }
+'use strict';
 
-// const handleDelivered = (vendor, orderId) => {
-//     console.log(` `);
-//
-// };
-//
-// module.exports = {
-//     pickupNotificationHandler
-// };
+function vendorThanks(id){
+    console.log(`VENDOR: Thank you for delivering ${id}, come again!`)
+}
+function delivered(id) {
+    console.log("delivered up", id);
+}
+module.exports = {
+    vendorThanks,
+    delivered
+}

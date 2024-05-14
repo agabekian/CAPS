@@ -1,32 +1,6 @@
 const e = require('./event-pool');
 const vendor = require('./vendor/index');
 const driver = require('./driver/index');
-const {inTransit} = require("./driver/handler");
-
-class Package {
-    constructor(event, time, payload) {
-        this.event = event;
-        this.time = time;
-        this.payload = payload;
-    }
-}
-
-e.on('pickupNotification',payload => {
-    console.log(`Received ${payload.store} from for package`);
-    console.log("triggering driver")
-    e.emit('driverAssigned')
-    // logEvent(eventName)
-});
-
-
-
-e.on('inTransit',inTransit);
-
-e.on('delivered',(payload)=>{
-    logEvent(payload);
-    e.emit('delivered');//to VENDOR
-})
-
 
 function logEvent(event, payload) {
     const currentTime = new Date().toISOString();
@@ -39,13 +13,18 @@ function logEvent(event, payload) {
     )
 }
 
-// // e.on('deliveryComplete', (payload) => {
-// //     console.log("DDDD")
-// // });
-//
-//
-//
-//
-// // eventEmitter.emit('deliveryNotification', 'Driver X', '12345');
-// // eventEmitter.emit('pickupAcknowledgment', 'Driver X', '12345');
-// // eventEmitter.emit('logEvent', 'Driver X', '12345');
+e.on('pickupNotification', (payload) => {
+    logEvent('pickupNotification', payload)
+    e.emit('driverAssigned', payload) //id only
+});
+
+e.on('inTransit', (payload) =>
+    logEvent('inTransit', payload));
+
+
+//is below OK ? should it come from driver?
+e.on('delivered', (payload) => {
+    console.log("DRIVER: delivered up", payload)
+    e.emit('notifyVendorOK', payload); // inform the VENDOR packaged delivered.
+})
+
